@@ -55,6 +55,8 @@ class RotationTree:
         # Apply transform and save rotation matrices
         transformed_partitions = []
         for partition in feature_partitions:
+            if partition.size == 0:
+                break
             sampled_data = self.get_samples(partition, y)
             rotation_matrix = self.get_rotation_matrix(sampled_data)
             transformed_partitions.append(np.dot(partition, rotation_matrix))
@@ -145,6 +147,8 @@ class RotationTree:
 
         transformed_partitions = []
         for i, p in enumerate(partitions):
+            if p.size == 0:
+                break
             transformed_partitions.append(np.dot(p, self.rotation_matrices[i]))
 
         new_X = np.concatenate(transformed_partitions, axis=1)
