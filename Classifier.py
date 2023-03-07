@@ -10,6 +10,20 @@ Xdata, Ydata = np.asarray([]), np.asarray([])
 motor_num = 3
 
 import pandas as pd
+# for k in range(1,6):
+#     for j in range(1,10):
+#         data = pd.read_csv(f"dist/hexa-x/m{k}/test{j}.csv")
+#         for i in range(1,len(data.loc[:, "R"])):
+#             # if(i < 3 or i > len(data.loc[:, "R"])-3):
+#             #     ax = data.loc[:,"R"][i], data.loc[:,"R"][i], data.loc[:,"R"][i], data.loc[:,"R"][i], data.loc[:,"R"][i], data.loc[:,"RDes"][i], data.loc[:,"P"][i], data.loc[:,"P"][i], data.loc[:,"P"][i], data.loc[:,"P"][i], data.loc[:,"P"][i], data.loc[:,"PDes"][i], data.loc[:,"Y"][i], data.loc[:,"Y"][i], data.loc[:,"Y"][i], data.loc[:,"Y"][i], data.loc[:,"Y"][i], data.loc[:,"YDes"][i]
+#             # else:
+#             #     ax = data.loc[:,"R"][i-2], data.loc[:,"R"][i-1], data.loc[:,"R"][i], data.loc[:,"R"][i+1], data.loc[:,"R"][i+2], data.loc[:,"RDes"][i], data.loc[:,"P"][i-2], data.loc[:,"P"][i-1], data.loc[:,"P"][i], data.loc[:,"P"][i+1], data.loc[:,"P"][i+2], data.loc[:,"PDes"][i], data.loc[:,"Y"][i-2], data.loc[:,"Y"][i-1], data.loc[:,"Y"][i], data.loc[:,"Y"][i+1], data.loc[:,"Y"][i+2], data.loc[:,"YDes"][i]
+#             # ax = data.loc[:,"R"][i], data.loc[:,"RDes"][i]
+#             ax = data.loc[:,"R"][i], data.loc[:,"RDes"][i], data.loc[:,"P"][i], data.loc[:,"PDes"][i], data.loc[:,"Y"][i], data.loc[:,"YDes"][i]
+#             ay = data.loc[:,"FaultIn"][i]
+#             aX.append(ax)
+#             aY.append(ay)
+
 for j in range(1,10):
     data = pd.read_csv(f"dist/hexa-x/m{motor_num}/test{j}.csv")
     for i in range(1,len(data.loc[:, "R"])):
@@ -21,12 +35,12 @@ for j in range(1,10):
         ax = data.loc[:,"R"][i], data.loc[:,"RDes"][i], data.loc[:,"P"][i], data.loc[:,"PDes"][i], data.loc[:,"Y"][i], data.loc[:,"YDes"][i]
         ay = data.loc[:,"FaultIn"][i]
         aX.append(ax)
-        aY.append(ay)
-    
+        aY.append(ay)    
+        
 Xdata, Ydata = np.asarray(aX).reshape(len(aX),len(ax)), np.asarray(aY).reshape(len(aY),1)
 
 # Xdata, Ydata = generate_data(3000)
-print(f"Load x: {Xdata}")
+print(f"Load x: {Xdata.shape}")
 print(f"Load y: {Ydata.shape}")
 # xtr, xte, ytr, yte = train_test_split(Xdata, Ydata, test_size=0.3)
 xtr = Xdata
