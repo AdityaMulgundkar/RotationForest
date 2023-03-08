@@ -1,14 +1,15 @@
-% M1 - 481
+% M1 fault @ 365
 ulog = ulogreader('log_457_2023-3-6-09-43-44.ulg');
 
-% M3 - 481
+% M3 fault @ 552
 %ulog = ulogreader('log_481_2023-3-6-11-30-18.ulg');
 
 msg = readTopicMsgs(ulog);
-motor_num = 1;
+motor_num = 3;
 
 % Fault time is the fault timestamp
-faulTimestamp = 552;
+faulTimestamp = 365;
+%faulTimestamp = 552;
 
 dstart = ulog.StartTime;
 dend = ulog.EndTime;
@@ -44,7 +45,7 @@ end
 
 headers = ["R", 'RDes', 'P', 'PDes', 'Y', 'YDes', 'FaultIn'];
 
-writematrix(headers,strcat('m1/real-test.csv'));
+writematrix(headers,strcat('m',num2str(motor_num),'/real-test.csv'));
     writematrix([...
         (attR),...
         (attR_d),...
@@ -53,4 +54,4 @@ writematrix(headers,strcat('m1/real-test.csv'));
         (attY),...
         (attY_d),...
         (fault)...
-        ],strcat('m1/real-test.csv'),'WriteMode','append');
+        ],strcat('m',num2str(motor_num),'/real-test.csv'),'WriteMode','append');
