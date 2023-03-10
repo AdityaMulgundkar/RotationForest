@@ -14,6 +14,7 @@ import pandas as pd
 aX_te, aY_te = [], []
 Xdata_te, Ydata_te = np.asarray([]), np.asarray([])
 data = pd.read_csv(f"dist/hexa-x/m{motor_num}/real-test.csv")
+# data = pd.read_csv(f"dist/hexa-x/m{motor_num}/test10.csv")
 for i in range(1,len(data.loc[:, "R"])):
     # ax = data.loc[:,"R"][i], data.loc[:,"RDes"][i], data.loc[:,"P"][i], data.loc[:,"PDes"][i], data.loc[:,"Y"][i], data.loc[:,"YDes"][i]
     # ax = data.loc[:,"R"][i], data.loc[:,"RDes"][i]
@@ -61,7 +62,7 @@ xte, yte = np.asarray(aX_te).reshape(len(aX_te),len(ax)), np.asarray(aY_te).resh
 
 import pickle
 
-Rotate = pickle.load(open("models/rfc-1", 'rb'))
+Rotate = pickle.load(open("models/rfc-12-R", 'rb'))
 preds_rotate = Rotate.predict(xte)
 print(preds_rotate)
 
