@@ -40,7 +40,7 @@ fault = double(timeHolder);
 
 for i=1:length(fault)
     if(fault(i) > RATELastTimestamp)
-        fault(i) = 1.0;
+        fault(i) = motorNum;
     else
         fault(i) = 0.0;
     end

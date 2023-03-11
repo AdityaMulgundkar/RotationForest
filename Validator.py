@@ -63,7 +63,7 @@ xte, yte = np.asarray(aX_te).reshape(len(aX_te),len(ax)), np.asarray(aY_te).resh
 
 import pickle
 
-Rotate = pickle.load(open("models/rfc-12-err90", 'rb'))
+Rotate = pickle.load(open("models/rfc-56-err90", 'rb'))
 preds_rotate = Rotate.predict(xte)
 print(preds_rotate)
 

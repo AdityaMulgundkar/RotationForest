@@ -2,22 +2,21 @@
 %ulog = ulogreader('log_457_2023-3-6-09-43-44.ulg');
 
 % M3 fault @ 552
-ulog = ulogreader('log_481_2023-3-6-11-30-18.ulg');
+%ulog = ulogreader('log_481_2023-3-6-11-30-18.ulg');
 
 % M5 fault @ 562
 %ulog = ulogreader('log_483_2023-3-6-11-36-24.ulg');
 
 % M6 fault @ 764
-%ulog = ulogreader('log_467_2023-3-6-10-08-12.ulg');
+ulog = ulogreader('log_467_2023-3-6-10-08-12.ulg');
 
 msg = readTopicMsgs(ulog);
-motor_num = 3;
+motor_num = 6;
 
 % Fault time is the fault timestamp
 %faulTimestamp = 365;
-faulTimestamp = 552;
-%faulTimestamp = 562;
-%faulTimestamp = 764;
+%faulTimestamp = 552;
+faulTimestamp = 562;
 
 dstart = ulog.StartTime;
 dend = ulog.EndTime;
@@ -45,7 +44,7 @@ fault = double(attR);
 
 for i=1:length(fault)
     if(i > faulTimestamp)
-        fault(i) = motor_num;
+        fault(i) = 1.0;
     else
         fault(i) = 0.0;
     end

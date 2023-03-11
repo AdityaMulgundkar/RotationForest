@@ -12,7 +12,8 @@ motor_num = 1
 import pandas as pd
 
 # motor_choice = [1,2,3,4,5,6]
-motor_choice = [1,2]
+# motor_choice = [1,2]
+motor_choice = [5,6]
 
 for motor in motor_choice:
     for j in range(1,10):
@@ -65,4 +66,4 @@ Rotate = RotationForest(n_trees=1000, n_features=3)
 Rotate.fit(xtr, ytr)
 
 import pickle
-pickle.dump(Rotate, open("models/rfc-12-err90", 'wb'))
+pickle.dump(Rotate, open("models/rfc-56-err90", 'wb'))
