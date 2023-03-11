@@ -13,7 +13,7 @@ import pandas as pd
 
 aX_te, aY_te = [], []
 Xdata_te, Ydata_te = np.asarray([]), np.asarray([])
-data = pd.read_csv(f"dist/hexa-x/err80/m{motor_num}/real-test.csv")
+data = pd.read_csv(f"dist/hexa-x/real-cases/m{motor_num}.csv")
 # data = pd.read_csv(f"dist/hexa-x/err80/m{motor_num}/test10.csv")
 # data = pd.read_csv(f"dist/hexa-x/err90/m{motor_num}/test10.csv")
 for i in range(1,len(data.loc[:, "R"])):
