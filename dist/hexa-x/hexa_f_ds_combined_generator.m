@@ -1,5 +1,5 @@
 clear;
-motorNum = 6;
+motorNum = 5;
 % Choose which log file to read
 filename = strcat('m',num2str(motorNum),'.mat');
 
