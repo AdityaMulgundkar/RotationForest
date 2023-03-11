@@ -17,6 +17,7 @@ motor_choice = [1,2]
 for motor in motor_choice:
     for j in range(1,10):
         data = pd.read_csv(f"dist/hexa-x/m{motor}/test{j}.csv")
+        # data = pd.read_csv(f"dist/hexa-x/err90/m{motor}/test{j}.csv")
         for i in range(1,len(data.loc[:, "R"])):
             # ax = data.loc[:,"R"][i], data.loc[:,"RDes"][i]
             # ax = data.loc[:,"R"][i], data.loc[:,"RDes"][i], data.loc[:,"P"][i], data.loc[:,"PDes"][i], data.loc[:,"Y"][i], data.loc[:,"YDes"][i]
@@ -64,4 +65,4 @@ Rotate = RotationForest(n_trees=1000, n_features=3)
 Rotate.fit(xtr, ytr)
 
 import pickle
-pickle.dump(Rotate, open("models/rfc-12-R", 'wb'))
+pickle.dump(Rotate, open("models/rfc-12-err90", 'wb'))
