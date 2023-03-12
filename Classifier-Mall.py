@@ -18,8 +18,8 @@ motor_choice = [1,2,3,4,5,6]
 
 for motor in motor_choice:
     for j in range(1,10):
-        # data = pd.read_csv(f"dist/hexa-x/err80/m{motor}/test{j}.csv")
-        data = pd.read_csv(f"dist/hexa-x/err90/m{motor}/test{j}.csv")
+        # data = pd.read_csv(f"dist/hexa-x/err20/m{motor}/test{j}.csv")
+        data = pd.read_csv(f"dist/hexa-x/err10/m{motor}/test{j}.csv")
         for i in range(1,len(data.loc[:, "R"])):
             # Mall - R, R-1, RDes, P, P-1, PDes, Y
             if i < 1:

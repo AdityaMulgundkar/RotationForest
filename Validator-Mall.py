@@ -9,13 +9,13 @@ import pandas as pd
 aX, aY = [], []
 Xdata, Ydata = np.asarray([]), np.asarray([])
 
-motor_num = 6
+motor_num = 1
 
 aX_te, aY_te = [], []
 Xdata_te, Ydata_te = np.asarray([]), np.asarray([])
 data = pd.read_csv(f"dist/hexa-x/real-cases/m{motor_num}.csv")
-# data = pd.read_csv(f"dist/hexa-x/err80/m{motor_num}/test10.csv")
-# data = pd.read_csv(f"dist/hexa-x/err90/m{motor_num}/test10.csv")
+# data = pd.read_csv(f"dist/hexa-x/err20/m{motor_num}/test10.csv")
+# data = pd.read_csv(f"dist/hexa-x/err10/m{motor_num}/test10.csv")
 for i in range(1, len(data.loc[:, "R"])):
     if i < 1:
         ax = (
@@ -51,11 +51,18 @@ xte, yte = np.asarray(aX_te).reshape(len(aX_te), len(
 
 Rotate = pickle.load(open("models/rfc-Mall", 'rb'))
 preds_rotate = Rotate.predict(xte)
-print(preds_rotate)
+# print(preds_rotate)
+preds_rotate = np.insert(preds_rotate, 0,5)
+data.insert(7, "RRPrediction", preds_rotate)
+# df.to_csv(file_name, sep='\t')
 
+print(data)
 
 # plt.plot(xte)
-plt.plot(yte)
-plt.plot(preds_rotate, linestyle='dotted')
+plt.plot(yte, label=f"M{motor_num} Actual Fault")
+plt.plot(preds_rotate, linestyle='dotted', linewidth='2', label=f"RRF Classifier")
+plt.legend(loc="upper left")
+plt.xlabel("Sampling")
+plt.ylabel("Fault Classification")
 # plt.axvline(x = 552, color = 'r', label = 'axvline - full height', linestyle='dotted')
 plt.show()

@@ -9,13 +9,13 @@ import pandas as pd
 aX, aY = [], []
 Xdata, Ydata = np.asarray([]), np.asarray([])
 
-motor_num = 2
+motor_num = 1
 
 aX_te, aY_te = [], []
 Xdata_te, Ydata_te = np.asarray([]), np.asarray([])
-data = pd.read_csv(f"dist/hexa-x/real-cases/m{motor_num}.csv")
-# data = pd.read_csv(f"dist/hexa-x/err80/m{motor_num}/test10.csv")
-# data = pd.read_csv(f"dist/hexa-x/err90/m{motor_num}/test10.csv")
+# data = pd.read_csv(f"dist/hexa-x/real-cases/m{motor_num}.csv")
+data = pd.read_csv(f"dist/hexa-x/err20/m{motor_num}/test10.csv")
+# data = pd.read_csv(f"dist/hexa-x/err10/m{motor_num}/test10.csv")
 for i in range(1, len(data.loc[:, "R"])):
     if i < 1:
         ax = (
@@ -43,7 +43,10 @@ print(preds_rotate)
 
 
 # plt.plot(xte)
-plt.plot(yte)
-plt.plot(preds_rotate, linestyle='dotted')
+plt.plot(yte, label=f"M{motor_num} Actual Fault")
+plt.plot(preds_rotate, linestyle='dotted', linewidth='2', label=f"RRF Classifier")
+plt.legend(loc="upper left")
+plt.xlabel("Sampling")
+plt.ylabel("Fault Classification")
 # plt.axvline(x = 552, color = 'r', label = 'axvline - full height', linestyle='dotted')
 plt.show()
