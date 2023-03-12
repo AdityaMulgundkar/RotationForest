@@ -54,7 +54,6 @@ preds_rotate = Rotate.predict(xte)
 # print(preds_rotate)
 preds_rotate = np.insert(preds_rotate, 0,5)
 data.insert(7, "RRPrediction", preds_rotate)
-# df.to_csv(file_name, sep='\t')
 
 print(data)
 
