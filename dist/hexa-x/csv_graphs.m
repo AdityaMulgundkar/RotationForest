@@ -1,0 +1,34 @@
+T1 = readtable('graphs/V-L1/m1.csv');
+
+x = T.Var1;
+f = figure;
+
+a = T.P;
+b = circshift(T.P,-1);
+t1 = nexttile;
+plot(x, T.R, 'Color',[0,0,1]);
+hold on;
+plot(x, circshift(T.R,-1), 'Color',[0,0,1], 'LineStyle', '--');
+hold on;
+plot(x, T.RDes, 'Color',[0,0,1], 'LineStyle', '-.');
+hold on;
+plot(x, T.P, 'Color',[1,0.5,0]);
+hold on;
+plot(x, circshift(T.P,-1), 'Color',[1,0.5,0], 'LineStyle', '--');
+hold on;
+plot(x, T.PDes, 'Color',[1,0.5,0], 'LineStyle', '-.');
+hold on;
+plot(x, T.Y, 'Color',[0,0.8,0]);
+hold on;
+plot(x, circshift(T.Y,-1), 'Color',[0,0.8,0], 'LineStyle', '--');
+hold on;
+plot(x, T.YDes, 'Color',[0,0.8,0], 'LineStyle', '-.');
+hold on;
+ylim([-90 90]);
+line([171 171], ylim, 'Color',[1,0,0], 'LineStyle', '--', 'LineWidth', 1);
+line([172 172], ylim, 'Color',[1,0,0], 'LineStyle', '-.', 'LineWidth', 1);
+xlim([167 173]);
+xlabel(t1,'Sample Number');
+ylabel(t1,'$R$,$R-1$,$R_d$,$P$,$P-1$,$P_d$,$Y$,$Y-1$,$Y_d$ (in deg)', 'Interpreter','LaTeX');
+legend('$R$','$R-1$','$R_d$','$P$','$P-1$','$P_d$','$Y$','$Y-1$','$Y_d$','Fault introduced','Fault classified','Location','northwest', 'Interpreter','LaTeX');
+set(gca,'FontSize', 14);

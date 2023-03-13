@@ -1,0 +1,64 @@
+T1 = readtable('graphs/V-L1/m1.csv');
+
+x = T.Var1;
+f = figure;
+
+a = T.P;
+b = circshift(T.P,-1);
+
+subplot(3,1,1);
+plot(x, T.R, 'Color',[0,0,1]);
+hold on;
+plot(x, circshift(T.R,-1), 'Color',[0,0,1], 'LineStyle', '--');
+hold on;
+plot(x, T.RDes, 'Color',[0,0,1], 'LineStyle', '-.');
+hold on;
+ylim([-120 35]);
+line([171 171], ylim, 'Color',[1,0,0], 'LineStyle', '--', 'LineWidth', 1);
+line([172 172], ylim, 'Color',[1,0,0], 'LineStyle', '-.', 'LineWidth', 1);
+xlim([170 180]);
+ylabel({'$R$,$R-1$,$R_d$ (in deg)';'L2 Classifier A'}, 'Interpreter','LaTeX');
+legend('$R$','$R-1$','$R_d$','Fault introduced','Fault classified','Location','northeast', 'Interpreter','LaTeX');
+set(gca,'FontSize', 14);
+set(gca,'xtick',[]);
+
+subplot(3,1,2);
+plot(x, T.R, 'Color',[0,0,1]);
+hold on;
+plot(x, T.P, 'Color',[1,0.5,0]);
+hold on;
+plot(x, circshift(T.P,-1), 'Color',[1,0.5,0], 'LineStyle', '--');
+hold on;
+plot(x, T.PDes, 'Color',[1,0.5,0], 'LineStyle', '-.');
+hold on;
+plot(x, T.Y, 'Color',[0,0.8,0]);
+hold on;
+ylim([-90 125]);
+line([171 171], ylim, 'Color',[1,0,0], 'LineStyle', '--', 'LineWidth', 1);
+line([172 172], ylim, 'Color',[1,0,0], 'LineStyle', '-.', 'LineWidth', 1);
+xlim([170 180]);
+ylabel({'$R$,$P$,$P-1$,$P_d$,$Y$ (in deg)';'L2 Classifier B'}, 'Interpreter','LaTeX');
+legend('$R$','$P$','$P-1$','$P_d$','$Y$','Fault introduced','Fault classified','Location','northeast', 'Interpreter','LaTeX');
+set(gca,'FontSize', 14);
+set(gca,'xtick',[]);
+
+subplot(3,1,3);
+plot(x, T.R, 'Color',[0,0,1]);
+hold on;
+plot(x, T.P, 'Color',[1,0.5,0]);
+hold on;
+plot(x, circshift(T.P,-1), 'Color',[1,0.5,0], 'LineStyle', '--');
+hold on;
+plot(x, T.PDes, 'Color',[1,0.5,0], 'LineStyle', '-.');
+hold on;
+plot(x, T.Y, 'Color',[0,0.8,0]);
+hold on;
+ylim([-90 125]);
+line([171 171], ylim, 'Color',[1,0,0], 'LineStyle', '--', 'LineWidth', 1);
+line([172 172], ylim, 'Color',[1,0,0], 'LineStyle', '-.', 'LineWidth', 1);
+xlim([170 180]);
+xlabel('Sample Number');
+ylabel({'$R$,$P$,$P-1$,$P_d$,$Y$ (in deg)';'L2 Classifier C'}, 'Interpreter','LaTeX');
+legend('$R$','$P$','$P-1$','$P_d$','$Y$','Fault introduced','Fault classified','Location','northeast', 'Interpreter','LaTeX');
+set(gca,'FontSize', 14);
+set(gca,'xtickMode', 'auto');
