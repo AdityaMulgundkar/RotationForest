@@ -12,11 +12,11 @@ Xdata, Ydata = np.asarray([]), np.asarray([])
 motor_num = 1
 
 # TODO:
-# Get rates and des rates
-## from pymavlink import mavextra as mx
-## mx.earth_rates ?
+# Get current roll pitch yaw value from onboard sensor
 # Attach timestamp to each sensor input packet (above)
 # Use Rotate.predict on the single dataset (last fetched)
+## Pass 0 values for des rates in the predictor. Pass rates if possible for R, P, Y and so on.
+## In case you cant fetch rates, jut pass zeros. Doesnt matter what output classifier gives. (This is worst case scenario)
 # Attach a timestamp after prediction result
 # Maintain an open log file (csv?)
 # Write each entry into same file
