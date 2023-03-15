@@ -1,0 +1,56 @@
+T = readtable('graphs/V-L1/m4.csv');
+
+x = T.Var1;
+f = figure;
+
+a = T.P;
+b = circshift(T.P,-1);
+t1 = nexttile;
+
+subplot(1,2,1);
+plot(x, T.R, 'Color',[0,0,1]);
+hold on;
+plot(x, circshift(T.R,-1), 'Color',[0,0,1], 'LineStyle', '--');
+hold on;
+plot(x, T.RDes, 'Color',[0,0,1], 'LineStyle', '-.');
+hold on;
+plot(x, T.P, 'Color',[1,0.5,0]);
+hold on;
+plot(x, circshift(T.P,-1), 'Color',[1,0.5,0], 'LineStyle', '--');
+hold on;
+plot(x, T.PDes, 'Color',[1,0.5,0], 'LineStyle', '-.');
+hold on;
+plot(x, T.Y, 'Color',[0,0.8,0]);
+hold on;
+plot(x, circshift(T.Y,-1), 'Color',[0,0.8,0], 'LineStyle', '--');
+hold on;
+plot(x, T.YDes, 'Color',[0,0.8,0], 'LineStyle', '-.');
+hold on;
+ylim([-40 50]);
+line([171 171], ylim, 'Color',[1,0,0], 'LineStyle', '--', 'LineWidth', 1);
+%line([172 172], ylim, 'Color',[1,0,0], 'LineStyle', '-.', 'LineWidth', 1);
+%xlim([167 173]);
+xlim([167 172]);
+legend('$\omega_x$','$\omega_x-1$','$\omega_{xd}$','$\omega_y$','$\omega_y-1$','$\omega_{yd}$','$\omega_z$','$\omega_z-1$','$\omega_{zd}$','Fault introduced','Location','northwest', 'Interpreter','LaTeX');
+set(gca,'FontSize', 14);
+xlabel('Sample Number');
+ylabel({'$\omega_x, \omega_x-1, \omega_{xd}, \omega_y, \omega_y-1, \omega_{yd}, \omega_z, \omega_z-1, \omega_{zd}$ (in deg)';'Classifier C1'}, 'Interpreter','LaTeX');
+
+subplot(1,2,2);
+plot(x, T.R, 'Color',[0,0,1]);
+hold on;
+plot(x, T.P, 'Color',[1,0.5,0]);
+hold on;
+plot(x, circshift(T.P,-1), 'Color',[1,0.5,0], 'LineStyle', '--');
+hold on;
+plot(x, T.PDes, 'Color',[1,0.5,0], 'LineStyle', '-.');
+hold on;
+plot(x, T.Y, 'Color',[0,0.8,0]);
+hold on;
+ylim([-70 55]);
+line([172 172], ylim, 'Color',[1,0,0], 'LineStyle', '-.', 'LineWidth', 1);
+xlim([171 180]);
+xlabel('Sample Number');
+ylabel({'$\omega_x$,$\omega_y$,$\omega_y-1$,$\omega_{yd}$,$\omega_z$ (in deg)';'Classifier C2-C'}, 'Interpreter','LaTeX');
+legend('$\omega_x$','$\omega_y$','$\omega_z-1$','$\omega_{zd}$','$\omega_z$','Fault classified','Location','northeast', 'Interpreter','LaTeX');
+set(gca,'FontSize', 14);

@@ -1,4 +1,4 @@
-T1 = readtable('graphs/V-L1/m1.csv');
+T = readtable('graphs/V-L1/m1.csv');
 
 x = T.Var1;
 f = figure;
