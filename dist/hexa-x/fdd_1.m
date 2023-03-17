@@ -70,6 +70,20 @@ data = [
     0.81 0.81 0.79 0.79 0.83;
     0.82 0.78 0.81 0.82 0.84;
 ];
+data = [
+0.8 0.82 0.91 0.88 0.92;
+0.98 0.91 0.8 0.75 0.89;
+0.94 0.87 0.69 0.88 0.97;
+0.75 0.88 0.79 0.83 0.91;
+0.92 0.93 0.7 0.77 0.9;
+0.88 0.94 0.93 0.92 0.97;
+];
+
+s1 = sum(data(:,1))/6;
+s2 = sum(data(:,2))/6;
+s3 = sum(data(:,3))/6;
+s4 = sum(data(:,4))/6;
+s5 = sum(data(:,5))/6;
 
 % Define the names for each category
 categories = {'Logistic Regression', 'Gaussian Naive Bayes', 'AdaBoost', 'Random Forest', 'Rotation Forest'};
@@ -85,7 +99,7 @@ for i = 2:size(data,1)
     polarplot(0:2*pi/5:2*pi, [data(i,:) data(i,1)], '-o', 'LineWidth', 2.3, 'MarkerSize', 8);
 end
 hold off;
-rlim([0.75,1]);
+rlim([0.6,1]);
 set(gca, 'ThetaTick', linspace(0, 360, length(categories) + 1), 'ThetaTickLabel', [categories categories{1}]); % Set the angular tick marks
 %title('Comparison of Classification Models for Motor Control', 'FontSize', 20); % Set the title font size
 legend(names, 'Location', 'bestoutside', 'FontSize', 18); % Set the legend font size

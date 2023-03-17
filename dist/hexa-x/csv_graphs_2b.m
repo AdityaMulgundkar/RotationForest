@@ -36,7 +36,7 @@ line([171 171], ylim, 'Color',[1,0,0], 'LineStyle', '--', 'LineWidth', 1);
 %line([172 172], ylim, 'Color',[1,0,0], 'LineStyle', '-.', 'LineWidth', 1);
 %xlim([167 173]);
 xlim([167 172]);
-legend('$\omega_x(k)$','$\omega_x(k-1)$','$\omega_{xd}(k)$','$\omega_y(k)$','$\omega_y(k-1)$','$\omega_{yd}(k)$','$\omega_z(k)$','$\omega_z(k-1)$','$\omega_{zd}(k)$','Fault introduced','Location','southwest', 'Interpreter','LaTeX');
+legend('$\omega_x(k)$','$\omega_x(k-1)$','$\omega_{xd}(k)$','$\omega_y(k)$','$\omega_y(k-1)$','$\omega_{yd}(k)$','$\omega_z(k)$','$\omega_z(k-1)$','$\omega_{zd}(k)$','Fault introduced','Location','northwest', 'Interpreter','LaTeX');
 xlabel('Sample Number');
 ylabel({'$\omega_x(k), \omega_x(k-1), \omega_{xd}(k), \omega_y(k), \omega_y(k-1), \omega_{yd}(k), \omega_z(k), \omega_z(k-1), \omega_{zd}(k)$ (in deg/s)';'Classifier C1'}, 'Interpreter','LaTeX');
 set(gca,'FontSize', 14);
