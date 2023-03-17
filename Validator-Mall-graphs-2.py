@@ -9,10 +9,15 @@ import pandas as pd
 aX, aY = [], []
 Xdata, Ydata = np.asarray([]), np.asarray([])
 
-motor_num = 1
+motor_num = 3
 
-for motor_num in range(1, 2):
+motors = [1, 3, 6]
+# motors = [3]
+last = 0
+
+for motor_num in motors:
     aX_te, aY_te = [], []
+    
     Xdata_te, Ydata_te = np.asarray([]), np.asarray([])
     data = pd.read_csv(f"dist/hexa-x/real-cases/m{motor_num}.csv")
     # data = pd.read_csv(f"dist/hexa-x/err20/m{motor_num}/test10.csv")
@@ -43,16 +48,21 @@ for motor_num in range(1, 2):
                 data.loc[:, "YDes"][i],
             )
         ay = data.loc[:, "FaultIn"][i]
-        aX_te.append(ax)
-        aY_te.append(ay)
+
+        if ay == 0:
+            last = i
+
+        if i - last < 10:
+            aX_te.append(ax)
+            aY_te.append(ay)
 
     xte, yte = np.asarray(aX_te).reshape(len(aX_te), len(
         ax)), np.asarray(aY_te).reshape(len(aY_te), 1)
-
+    print(f"last {last}")
+    print(xte.shape, yte.shape)
 
     Rotate = pickle.load(open("models/rfc-Mall", 'rb'))
     preds_rotate = Rotate.predict(xte)
-    # print(preds_rotate)
-    preds_rotate = np.insert(preds_rotate, 0, 0)
-    data.insert(7, "RRPrediction", preds_rotate)
-    data.to_csv(f"dist/hexa-x/graphs/V-L1-test/m{motor_num}.csv", sep='\t')
+    # print(preds_rotate.shape)
+    data.to_csv(f"dist/hexa-x/graphs/V-L1-paper/m{motor_num}.csv", sep=',', index=False)
+    # data.to_csv(f"dist/hexa-x/graphs/V-L1-paper/m{motor_num}.csv", sep='\t')
