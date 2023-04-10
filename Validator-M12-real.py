@@ -18,9 +18,29 @@ filename = f"dist/real-logs/log_{timestamp}.csv"
 log_writer = 0
 last_time = 0
 R, R_1, R_d = 0, 0, 0
+controlFlag = True
 
 def log_this(time, value):
     log_writer.writerow([time, value])
+    
+def set_param(self, name: str, value: float, type: int=0,
+                  timeout: float=1, retries: int=3):
+    name = name.encode('utf8')
+    self.mav.param_set_send(
+            *self.target,
+            name, value, type
+    )
+    # logging.info(f'set_param({name=}, {value=}, {type=})')
+
+    while not (msg := self.recv_match(type='PARAM_VALUE', blocking=True,
+                                          timeout=timeout)) and retries > 0:
+        retries -= 1
+        # logging.debug(f'param set timed out after {timeout}s, retrying...')
+        self.mav.param_set_send(
+                *self.target,
+                name, value, type
+            )
+    return msg
     
 with open(filename, "a", newline='') as csvfile:
     log_writer = csv.writer(csvfile)
@@ -55,4 +75,16 @@ with open(filename, "a", newline='') as csvfile:
         log_this(last_time, preds_rotate[0])
         print(preds_rotate[0])
 
-        time.sleep(0.01)
+        if(preds_rotate[0]==0 and controlFlag):
+            # master.mav.param_set_send(
+            #     master.target_system, master.target_component,
+            #     b'FAULTY_M0',
+            #     1,
+            #     mavutil.mavlink.MAV_PARAM_TYPE_REAL32
+            # )
+            n = 1
+            set_param(name=f'FAULTY_M{n}', value=1)
+            print("SET CONTROL FLAG FALSE")
+            controlFlag = False
+
+        time.sleep(0.1)
