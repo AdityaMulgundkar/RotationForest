@@ -60,14 +60,14 @@ async def run():
     def log_this(time, value):
         log_writer.writerow([time, value])
     last_time = 0
-    R, R_1, R_d = 0, 0, 0
+    R, P, P_1, P_d, Y = 0, 0, 0, 0, 0
     controlFlag = True
     # Connect to the drone
     drone = System()
     await drone.connect(system_address=mavsdk_string)
     with open(filename, "a", newline='') as csvfile:
         log_writer = csv.writer(csvfile)
-        Rotate = pickle.load(open("models/rfc-M12", 'rb'))
+        Rotate = pickle.load(open("models/rfc-M35", 'rb'))
 
         mavutil.set_dialect("common")
         master = mavutil.mavlink_connection(pymavlink_string)
@@ -81,26 +81,25 @@ async def run():
                 type = msg.get_type()
                 if type == 'UNKNOWN_12921' or type == 'DESIRED_VELOCITY_RATES':
                     # print(f"{msg}")
-                    R_d = math.degrees(msg.rdes)
-                    # R_d = (msg.rdes)
+                    P_d = math.degrees(msg.pdes)
                 
                 if type == 'ATTITUDE_TARGET':
                     # print(f"{msg}")
-                    R, R_1 = math.degrees(msg.body_roll_rate), math.degrees(R)
-                    # R, R_1 = (msg.body_roll_rate), (R)
+                    P_1 = P
+                    R, P, Y = math.degrees(msg.body_roll_rate), math.degrees(msg.body_pitch_rate), math.degrees(Y)
                     last_time = msg.time_boot_ms
             except:
                 pass
             
-            print(f"R, R_1, R_d: {R, R_1, R_d}")
+            print(f"R, P, P_1, P_d, Y: {R, P, P_1, P_d, Y}")
             
-            xte = np.asarray([R, R_1, R_d]).reshape(1, 3)
+            xte = np.asarray([R, P, P_1, P_d, Y]).reshape(1, 3)
             preds_rotate = Rotate.predict(xte)
             log_this(last_time, preds_rotate[0])
             print(f"Pred: {preds_rotate[0]}")
 
             if(preds_rotate[0]!=0 and controlFlag):
-                await drone.param.set_param_int('FAULTY_M0', 1)
+                await drone.param.set_param_int('FAULTY_M2', 1)
                 print("SET CONTROL FLAG FALSE")
                 controlFlag = False
 
