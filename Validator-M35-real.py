@@ -34,7 +34,24 @@ pymavlink_string = "udpin:0.0.0.0:14553"
 dronekit_string = "udpin:0.0.0.0:14554"
 mavsdk_string = "udp://:14554"
 
-    
+def request_message_interval(master, message_id: int, frequency_hz: float):
+    """
+    Request MAVLink message in a desired frequency,
+    documentation for SET_MESSAGE_INTERVAL:
+        https://mavlink.io/en/messages/common.html#MAV_CMD_SET_MESSAGE_INTERVAL
+    Args:
+        message_id (int): MAVLink message ID
+        frequency_hz (float): Desired frequency in Hz
+    """
+    master.mav.command_long_send(
+        master.target_system, master.target_component,
+        mavutil.mavlink.MAV_CMD_SET_MESSAGE_INTERVAL, 0,
+        message_id, # The MAVLink message ID
+        1e6 / frequency_hz, # The interval between two messages in microseconds. Set to -1 to disable and 0 to request default rate.
+        0, 0, 0, 0, # Unused parameters
+        0, # Target address of message stream (if message has target address fields). 0: Flight-stack default (recommended), 1: address of requestor, 2: broadcast.
+    )
+
 def set_param(name: str, value: float, type: int=0,
                   timeout: float=1, retries: int=10):
     name = name.encode('utf8')
@@ -73,6 +90,8 @@ async def run():
         master = mavutil.mavlink_connection(pymavlink_string)
         master.wait_heartbeat()
 
+        request_message_interval(master, 12921, 50)
+
         while True:
             try:
                 msg = master.recv_match(blocking=False, timeout=1)
@@ -93,7 +112,7 @@ async def run():
             
             print(f"R, P, P_1, P_d, Y: {R, P, P_1, P_d, Y}")
             
-            xte = np.asarray([R, P, P_1, P_d, Y]).reshape(1, 3)
+            xte = np.asarray([R, P, P_1, P_d, Y]).reshape(1, 5)
             preds_rotate = Rotate.predict(xte)
             log_this(last_time, preds_rotate[0])
             print(f"Pred: {preds_rotate[0]}")
@@ -102,6 +121,7 @@ async def run():
                 await drone.param.set_param_int('FAULTY_M2', 1)
                 print("SET CONTROL FLAG FALSE")
                 controlFlag = False
+                break
 
             time.sleep(0.0001)
 
