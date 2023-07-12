@@ -2,20 +2,24 @@
 %ulog = ulogreader('log_457_2023-3-6-09-43-44.ulg');
 
 % M3 fault @ 552
-ulog = ulogreader('log_481_2023-3-6-11-30-18.ulg');
+% ulog = ulogreader('log_481_2023-3-6-11-30-18.ulg');
 
 % M5 fault @ 562
 %ulog = ulogreader('log_483_2023-3-6-11-36-24.ulg');
+
+% M5 fault @ 584
+ulog = ulogreader('log_484_2023-3-6-11-37-38.ulg');
 
 % M6 fault @ 764
 %ulog = ulogreader('log_467_2023-3-6-10-08-12.ulg');
 
 msg = readTopicMsgs(ulog);
-motor_num = 3;
+motor_num = 5;
 
 % Fault time is the fault timestamp
 %faulTimestamp = 365;
-faulTimestamp = 552;
+% faulTimestamp = 552;
+faulTimestamp = 584;
 %faulTimestamp = 562;
 %faulTimestamp = 764;
 
@@ -31,6 +35,11 @@ data3 = readTopicMsgs(ulog,'TopicNames',{'vehicle_rates_setpoint',}, ...
 'InstanceID',{0},'Time',[dstart dend]);
 
 vehicle_rates_setpoint = data3.TopicMessages{1,1};
+
+data4 = readTopicMsgs(ulog,'TopicNames',{'actuator_outputs',}, ... 
+'InstanceID',{0},'Time',[dstart dend]);
+
+act = data4.TopicMessages{1,1};
 
 attR = rad2deg(vehicle_angular_velocity.xyz(:,1));
 attP = rad2deg(vehicle_angular_velocity.xyz(:,2));
