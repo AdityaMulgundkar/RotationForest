@@ -8,14 +8,14 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
 import pandas as pd
 import matplotlib.pyplot as plt
-from sklearn.inspection import DecisionBoundaryDisplay
 from mlxtend.plotting import plot_decision_regions
 
 aX, aY = [], []
 Xdata, Ydata = np.asarray([]), np.asarray([])
 
-motor_choice = [1, 2, 3, 4, 5, 6]
-# motor_choice = [1,2]
+# motor_choice = [1, 2, 3, 4, 5, 6]
+# motor_choice = [1,6]
+motor_choice = [1,2,3,5]
 # motor_choice = [3,5]
 # motor_choice = [1,3,4]
 
@@ -81,11 +81,11 @@ for i in range(0, len(xtr)):
         yt = np.append(yt, int(1))
 print(f"ytr: {ytr}")
 
-pca = PCA(n_components=3)
+pca = PCA(n_components=2)
 xtr = pca.fit_transform(xtr)
 
-Linear = LogisticRegression()
-Linear.fit(xtr, ytr)
+Logistic = LogisticRegression()
+Logistic.fit(xtr, ytr)
 
 Gaussian = GaussianNB()
 Gaussian.fit(xtr, ytr)
@@ -96,34 +96,34 @@ Ada.fit(xtr, ytr)
 Random = RandomForestClassifier(n_estimators=200)
 Random.fit(xtr, ytr)
 
-Rotate = RotationForest(n_trees=200, n_features=3)
+Rotate = RotationForest(n_trees=2000, n_features=3)
 Rotate.fit(xtr, ytr)
 
 # Plot the decision boundary
 ax = plt.subplot(2, 3, 1)
 plt.tight_layout(h_pad=0.5, w_pad=0.5, pad=2.5)
-plot_decision_regions(xtr, yt.astype(np.int_), clf=Linear, legend=2, filler_feature_values=[1], feature_index=[0, 1, 2])
+plot_decision_regions(xtr, yt.astype(np.int_), clf=Logistic, legend=2, filler_feature_values=[1], feature_index=[0, 1])
 plt.title('Logistic Regression')
 
 ax = plt.subplot(2, 3, 2)
 plt.tight_layout(h_pad=0.5, w_pad=0.5, pad=2.5)
 plot_decision_regions(xtr, yt.astype(np.int_), clf=Gaussian, legend=2)
-plt.title('Gaussian')
+plt.title('Gaussian Naive Bayes')
 
 ax = plt.subplot(2, 3, 3)
 plt.tight_layout(h_pad=0.5, w_pad=0.5, pad=2.5)
 plot_decision_regions(xtr, yt.astype(np.int_), clf=Ada, legend=2)
-plt.title('AdaBoost')
+plt.title('AdaBoost Classifier')
 
 ax = plt.subplot(2, 3, 4)
 plt.tight_layout(h_pad=0.5, w_pad=0.5, pad=2.5)
 plot_decision_regions(xtr, yt.astype(np.int_), clf=Random, legend=2)
-plt.title('Random Forest')
+plt.title('Random Forest Classifier')
 
 ax = plt.subplot(2, 3, 5)
 plt.tight_layout(h_pad=0.5, w_pad=0.5, pad=2.5)
 plot_decision_regions(xtr, yt.astype(np.int_), clf=Rotate, legend=2)
-plt.title('Rotation Forest')
+plt.title('Rotation Forest Classifier')
 
 # Adding axes annotations
 plt.show()
