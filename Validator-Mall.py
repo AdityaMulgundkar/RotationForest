@@ -11,12 +11,22 @@ import pandas as pd
 aX, aY = [], []
 Xdata, Ydata = np.asarray([]), np.asarray([])
 
-motor_num = 1
+motor_num = 2
+# fname = "log_416_2023-2-28-11-46-20"
+# fname = "log_417_2023-2-28-11-47-54"
+fname = "log_420_2023-2-28-12-00-24"
+# motor_num = 5
+# fname = "log_439_2023-2-28-13-08-12"
+# fname = "log_436_2023-2-28-12-57-14"
+
+
+last = 0
 
 aX_te, aY_te = [], []
 Xdata_te, Ydata_te = np.asarray([]), np.asarray([])
 # data = pd.read_csv(f"dist/hexa-x/real-cases/m{motor_num}.csv")
-data = pd.read_csv(f"dist/hexa-x/graphs/V-L1-paper/m{motor_num}.csv")
+data = pd.read_csv(f"dist/munjaal/m{motor_num}/{fname}.csv")
+# data = pd.read_csv(f"dist/hexa-x/graphs/V-L1-paper/m{motor_num}.csv")
 # data = pd.read_csv(f"dist/hexa-x/err20/m{motor_num}/test10.csv")
 # data = pd.read_csv(f"dist/hexa-x/err10/m{motor_num}/test10.csv")
 for i in range(1, len(data.loc[:, "R"])):
@@ -45,8 +55,13 @@ for i in range(1, len(data.loc[:, "R"])):
             data.loc[:, "YDes"][i],
         )
     ay = data.loc[:, "FaultIn"][i]
+    if ay != 0:
+        last = i
+    
     aX_te.append(ax)
     aY_te.append(ay)
+
+print(f"Real fault is at {last}")
 
 xte, yte = np.asarray(aX_te).reshape(len(aX_te), len(
     ax)), np.asarray(aY_te).reshape(len(aY_te), 1)
@@ -71,4 +86,4 @@ plt.legend(loc="upper left")
 plt.xlabel("Sampling")
 plt.ylabel("Fault Classification")
 # plt.axvline(x = 552, color = 'r', label = 'axvline - full height', linestyle='dotted')
-# plt.show()
+plt.show()
