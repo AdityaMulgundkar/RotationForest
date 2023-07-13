@@ -11,7 +11,7 @@ import pandas as pd
 aX, aY = [], []
 Xdata, Ydata = np.asarray([]), np.asarray([])
 
-motor_num = 2
+motor_num = 1
 # fname = "log_416_2023-2-28-11-46-20"
 # fname = "log_417_2023-2-28-11-47-54"
 fname = "log_420_2023-2-28-12-00-24"
@@ -24,8 +24,8 @@ last = 0
 
 aX_te, aY_te = [], []
 Xdata_te, Ydata_te = np.asarray([]), np.asarray([])
-# data = pd.read_csv(f"dist/hexa-x/real-cases/m{motor_num}.csv")
-data = pd.read_csv(f"dist/munjaal/m{motor_num}/{fname}.csv")
+data = pd.read_csv(f"dist/hexa-x/real-cases/m{motor_num}.csv")
+# data = pd.read_csv(f"dist/munjaal/m{motor_num}/{fname}.csv")
 # data = pd.read_csv(f"dist/hexa-x/graphs/V-L1-paper/m{motor_num}.csv")
 # data = pd.read_csv(f"dist/hexa-x/err20/m{motor_num}/test10.csv")
 # data = pd.read_csv(f"dist/hexa-x/err10/m{motor_num}/test10.csv")
