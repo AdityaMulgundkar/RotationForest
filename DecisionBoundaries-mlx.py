@@ -15,7 +15,9 @@ Xdata, Ydata = np.asarray([]), np.asarray([])
 
 # motor_choice = [1, 2, 3, 4, 5, 6]
 # motor_choice = [1,6]
-motor_choice = [1,2,3,5]
+# motor_choice = [1,2,3,5]
+motor_choice = [1,2]
+# motor_choice = [2]
 # motor_choice = [3,5]
 # motor_choice = [1,3,4]
 
